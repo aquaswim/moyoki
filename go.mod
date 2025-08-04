@@ -1,12 +1,15 @@
-module github.com/aquaswim/ndobol
+module github.com/aquaswim/moyoki
 
 go 1.24
 
 require (
+	github.com/aquaswim/govite v0.0.4
+	github.com/gofiber/fiber/v2 v2.52.9
+	github.com/golobby/container/v3 v3.3.2
+)
+
+require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/aquaswim/govite v0.0.4 // indirect
-	github.com/gofiber/fiber/v2 v2.52.9 // indirect
-	github.com/golobby/container/v3 v3.3.2 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect

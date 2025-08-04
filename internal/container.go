@@ -1,8 +1,8 @@
 package internal
 
 import (
-	httpServer "github.com/aquaswim/ndobol/internal/adapter/http_server"
-	"github.com/aquaswim/ndobol/internal/core/port"
+	httpServer "github.com/aquaswim/moyoki/internal/adapter/http_server"
+	"github.com/aquaswim/moyoki/internal/core/port"
 	"github.com/golobby/container/v3"
 )
 

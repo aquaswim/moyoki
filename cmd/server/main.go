@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/aquaswim/ndobol/internal"
-	"github.com/aquaswim/ndobol/internal/core/port"
+	"github.com/aquaswim/moyoki/internal"
+	"github.com/aquaswim/moyoki/internal/core/port"
 	"github.com/gofiber/fiber/v2/log"
 	"os"
 	"os/signal"

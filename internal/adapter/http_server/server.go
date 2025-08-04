@@ -1,8 +1,8 @@
 package httpServer
 
 import (
-	"github.com/aquaswim/ndobol/internal/core/port"
-	"github.com/aquaswim/ndobol/web"
+	"github.com/aquaswim/moyoki/internal/core/port"
+	"github.com/aquaswim/moyoki/web"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/logger"

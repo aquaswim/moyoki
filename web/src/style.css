@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.router-link-active {
+  @apply bg-gray-200 font-bold; /* Example Tailwind classes */
+}

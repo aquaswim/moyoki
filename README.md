@@ -1,3 +1,3 @@
-# Moyoki
+# ꦩꦺꦴꦪꦺꦴꦏꦶ
 
-Simple and easy to use mocking server
+Moyoki (javanese) mean mocking, this is simple program to do http server mocking.

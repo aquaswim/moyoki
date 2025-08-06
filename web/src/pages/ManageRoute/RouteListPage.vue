@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const routes = ref([
   { id: 1, path: "/api/users", description: "Get all users" },
@@ -14,7 +14,7 @@ const deleteRoute = (id) => {
     text: "You won't be able to revert this!",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
       // todo do remove

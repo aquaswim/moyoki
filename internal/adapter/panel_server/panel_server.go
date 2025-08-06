@@ -1,6 +1,7 @@
 package httpServer
 
 import (
+	"github.com/aquaswim/moyoki/internal/config"
 	"github.com/aquaswim/moyoki/internal/core/port"
 	"github.com/aquaswim/moyoki/web"
 	"github.com/gofiber/fiber/v2"
@@ -12,19 +13,23 @@ import (
 )
 
 type server struct {
+	cfg *config.AppConfig
 	app *fiber.App
 }
 
 func (s server) Start() error {
-	log.Infof("Server started on port %s", ":3000")
-	return s.app.Listen(":3000")
+	log.Infof("Panel Server started on port %s", ":3000")
+	return s.app.Listen(s.cfg.PanelListenAddr)
 }
 
 func (s server) Stop() error {
 	return s.app.ShutdownWithTimeout(5 * time.Second)
 }
 
-func NewServer() port.Server {
+func NewServer(
+	cfg *config.AppConfig,
+	panelHandler *PanelHandler,
+) port.Server {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
 		ReadTimeout:           10 * time.Second,
@@ -44,9 +49,13 @@ func NewServer() port.Server {
 		},
 	))
 
+	// register all panel rout
+	panelHandler.RegisterHandler(app)
+
 	web.RegisterRoutes(app)
 
 	return &server{
 		app: app,
+		cfg: cfg,
 	}
 }

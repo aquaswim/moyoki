@@ -12,10 +12,17 @@ import (
 func main() {
 	c := internal.NewContainer()
 
-	server := internal.Resolve[port.Server](c)
+	panelServer := internal.ResolveNamed[port.Server](c, "panel")
+	mockServer := internal.ResolveNamed[port.Server](c, "mock")
 
 	go func() {
-		err := server.Start()
+		err := panelServer.Start()
+		if err != nil {
+			log.Errorf("server start error: %s", err)
+		}
+	}()
+	go func() {
+		err := mockServer.Start()
 		if err != nil {
 			log.Errorf("server start error: %s", err)
 		}
@@ -26,12 +33,16 @@ func main() {
 
 	_ = <-stopChan // This blocks the main thread until an interrupt is received
 	log.Info("Gracefully shutting down...")
-	_ = server.Stop()
+	_ = panelServer.Stop()
+	_ = mockServer.Stop()
 
 	log.Info("Running cleanup tasks...")
 
 	// Your cleanup tasks go here
-	// db.Close()
+	err := internal.ResolveNamed[port.Closer](c, "db")()
+	if err != nil {
+		log.Errorf("db close error: %s", err)
+	}
 	// redisConn.Close()
 	log.Info("Fiber was successful shutdown.")
 }

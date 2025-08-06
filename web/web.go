@@ -5,6 +5,7 @@ import (
 	"github.com/aquaswim/govite"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
+	"github.com/gofiber/fiber/v2/middleware/compress"
 	"html/template"
 )
 
@@ -40,5 +41,10 @@ func RegisterRoutes(app *fiber.App) {
 		})
 	})
 
-	app.Use(adaptor.HTTPHandler(vite.FileServer()))
+	app.Use(
+		compress.New(compress.Config{
+			Level: 1, // best speed
+		}),
+		adaptor.HTTPHandler(vite.FileServer()),
+	)
 }

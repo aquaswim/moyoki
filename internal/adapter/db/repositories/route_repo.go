@@ -55,9 +55,10 @@ func (r routeRepository) Delete(ctx context.Context, id int) error {
 }
 
 func (r routeRepository) Update(ctx context.Context, route *domain.RouteItem) error {
-	headers, _ := json.Marshal(route.ResponseHeader)
+	headers, _ := json.Marshal(route.ResponseHeaders)
 
-	_, err := r.routeDB.Where("id = ?").Updates(ctx, model.Route{
+	_, err := r.routeDB.Where("id = ?", route.ID).Updates(ctx, model.Route{
+		Method:          route.Method,
 		Path:            route.Path,
 		Description:     route.Description,
 		ResponseCode:    route.ResponseCode,
@@ -68,7 +69,7 @@ func (r routeRepository) Update(ctx context.Context, route *domain.RouteItem) er
 }
 
 func routeToModel(route *domain.RouteItem) *model.Route {
-	rawResponseHeaders, _ := json.Marshal(route.ResponseHeader)
+	rawResponseHeaders, _ := json.Marshal(route.ResponseHeaders)
 
 	return &model.Route{
 		ID:              route.ID,
@@ -87,12 +88,12 @@ func routeModelToEntity(route *model.Route) *domain.RouteItem {
 	var headers []domain.RouteResponseHeader
 	_ = json.Unmarshal(route.ResponseHeaders, &headers)
 	return &domain.RouteItem{
-		ID:             route.ID,
-		Method:         route.Method,
-		Path:           route.Path,
-		Description:    route.Description,
-		ResponseCode:   route.ResponseCode,
-		ResponseBody:   route.ResponseBody,
-		ResponseHeader: headers,
+		ID:              route.ID,
+		Method:          route.Method,
+		Path:            route.Path,
+		Description:     route.Description,
+		ResponseCode:    route.ResponseCode,
+		ResponseBody:    route.ResponseBody,
+		ResponseHeaders: headers,
 	}
 }

@@ -11,9 +11,9 @@ type RouteItem struct {
 	Path        string `json:"path"`
 	Description string `json:"description"`
 
-	ResponseCode   int                   `json:"responseCode"`
-	ResponseHeader []RouteResponseHeader `json:"responseHeader"`
-	ResponseBody   string                `json:"responseBody"`
+	ResponseCode    int                   `json:"responseCode"`
+	ResponseHeaders []RouteResponseHeader `json:"responseHeaders"`
+	ResponseBody    string                `json:"responseBody"`
 }
 
 type RouteItemRequestData struct {

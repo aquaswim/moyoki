@@ -53,7 +53,7 @@ func New(
 		if err != nil {
 			return c.Status(500).SendString(fmt.Sprintf("failed to resolve route: %s", err))
 		}
-		for _, header := range routeItem.ResponseHeader {
+		for _, header := range routeItem.ResponseHeaders {
 			c.Set(header.Key, header.Value)
 		}
 		return c.Status(routeItem.ResponseCode).SendString(routeItem.ResponseBody)

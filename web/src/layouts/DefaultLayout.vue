@@ -21,6 +21,11 @@ import { RouterLink } from "vue-router";
             >Routes
           </RouterLink>
           <RouterLink
+            to="/logs"
+            class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded"
+            >Logs
+          </RouterLink>
+          <RouterLink
             to="/about"
             class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded"
             >About

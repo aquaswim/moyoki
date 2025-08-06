@@ -4,8 +4,8 @@ import (
 	"github.com/aquaswim/moyoki/internal/adapter/db/repositories/model"
 	"github.com/aquaswim/moyoki/internal/config"
 	"github.com/aquaswim/moyoki/internal/core/port"
+	"github.com/glebarez/sqlite"
 	"github.com/gofiber/fiber/v2/log"
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 

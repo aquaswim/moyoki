@@ -72,6 +72,7 @@ func routeToModel(route *domain.RouteItem) *model.Route {
 
 	return &model.Route{
 		ID:              route.ID,
+		Method:          route.Method,
 		Path:            route.Path,
 		Description:     route.Description,
 		ResponseCode:    route.ResponseCode,
@@ -87,6 +88,7 @@ func routeModelToEntity(route *model.Route) *domain.RouteItem {
 	_ = json.Unmarshal(route.ResponseHeaders, &headers)
 	return &domain.RouteItem{
 		ID:             route.ID,
+		Method:         route.Method,
 		Path:           route.Path,
 		Description:    route.Description,
 		ResponseCode:   route.ResponseCode,

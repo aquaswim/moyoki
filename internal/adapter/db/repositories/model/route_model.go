@@ -7,7 +7,8 @@ import (
 
 type Route struct {
 	ID          int    `gorm:"primaryKey"`
-	Path        string `gorm:"uniqueIndex"`
+	Method      string `gorm:"index:,unique,composite:idx_method_path"`
+	Path        string `gorm:"index:,unique,composite:idx_method_path"`
 	Description string
 
 	ResponseCode    int

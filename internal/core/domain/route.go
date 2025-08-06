@@ -7,6 +7,7 @@ type RouteResponseHeader struct {
 
 type RouteItem struct {
 	ID          int    `json:"id"`
+	Method      string `json:"method"`
 	Path        string `json:"path"`
 	Description string `json:"description"`
 
@@ -16,6 +17,7 @@ type RouteItem struct {
 }
 
 type RouteItemRequestData struct {
+	Method      string `json:"method"`
 	Path        string `json:"path"`
 	Description string `json:"description"`
 

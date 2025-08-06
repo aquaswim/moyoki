@@ -20,3 +20,7 @@ type RouteService interface {
 	Delete(ctx context.Context, id int) error
 	Update(ctx context.Context, id int, route *domain.RouteItemRequestData) error
 }
+
+type RouteMockService interface {
+	Resolve(ctx context.Context, req *domain.MockRequest) (*domain.RouteItem, error)
+}

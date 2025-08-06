@@ -3,6 +3,7 @@ package mockServer
 import (
 	"fmt"
 	"github.com/aquaswim/moyoki/internal/config"
+	"github.com/aquaswim/moyoki/internal/core/domain"
 	"github.com/aquaswim/moyoki/internal/core/port"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
@@ -27,6 +28,7 @@ func (m mockServer) Stop() error {
 
 func New(
 	cfg *config.AppConfig,
+	mockService port.RouteMockService,
 ) port.Server {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
@@ -42,9 +44,19 @@ func New(
 	app.Use(requestid.New())
 
 	app.Use(func(c *fiber.Ctx) error {
-		str := fmt.Sprintf("Will handle this request info:\n%s", c.Request().String())
-		// todo: handle mocking logic here
-		return c.SendString(str)
+		req := &domain.MockRequest{
+			Method: c.Method(),
+			Path:   c.Path(),
+		}
+
+		routeItem, err := mockService.Resolve(c.Context(), req)
+		if err != nil {
+			return c.Status(500).SendString(fmt.Sprintf("failed to resolve route: %s", err))
+		}
+		for _, header := range routeItem.ResponseHeader {
+			c.Set(header.Key, header.Value)
+		}
+		return c.Status(routeItem.ResponseCode).SendString(routeItem.ResponseBody)
 	})
 
 	return &mockServer{

@@ -21,7 +21,7 @@ RUN mkdir /config && chown appuser:appgroup /config
 USER appuser
 
 ENV PANEL_LISTEN_ADDR=:3000
-ENV ENV PANEL_LISTEN_ADDR=:3001
+ENV MOCK_LISTEN_ADDR=:3001
 ENV DB_DSN=/config/moyoki.db
 ENV TZ=Etc/UTC
 

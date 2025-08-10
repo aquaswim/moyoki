@@ -11,6 +11,7 @@ type RouteRepository interface {
 	Save(ctx context.Context, route *domain.RouteItem) error
 	Delete(ctx context.Context, id int) error
 	Update(ctx context.Context, route *domain.RouteItem) error
+	Count(ctx context.Context) (int64, error)
 }
 
 type RouteService interface {
@@ -19,6 +20,7 @@ type RouteService interface {
 	Save(ctx context.Context, route *domain.RouteItemRequestData) error
 	Delete(ctx context.Context, id int) error
 	Update(ctx context.Context, id int, route *domain.RouteItemRequestData) error
+	Count(ctx context.Context) (int64, error)
 }
 
 type RouteMockService interface {

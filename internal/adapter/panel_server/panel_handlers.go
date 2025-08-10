@@ -26,6 +26,7 @@ func (h PanelHandler) RegisterHandler(app *fiber.App) {
 	// manage routes
 	api.Get("/routes", h.getRoutes)
 	api.Post("/routes", h.createRoutes)
+	api.Get("/routes/count", h.countRoutes)
 	api.Get("/routes/:id", h.getRouteByID)
 	api.Put("/routes/:id", h.updateRouteByID)
 	api.Delete("/routes/:id", h.DeleteRouteByID)
@@ -95,4 +96,12 @@ func (h PanelHandler) DeleteRouteByID(ctx *fiber.Ctx) error {
 		return NewErrorRes(err).Send(ctx)
 	}
 	return NewSuccessRes(nil).Send(ctx)
+}
+
+func (h PanelHandler) countRoutes(ctx *fiber.Ctx) error {
+	count, err := h.routeService.Count(ctx.Context())
+	if err != nil {
+		return NewErrorCodeRes(http.StatusBadRequest, err).Send(ctx)
+	}
+	return NewSuccessRes(count).Send(ctx)
 }

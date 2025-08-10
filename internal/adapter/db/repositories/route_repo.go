@@ -68,6 +68,10 @@ func (r routeRepository) Update(ctx context.Context, route *domain.RouteItem) er
 	return err
 }
 
+func (r routeRepository) Count(ctx context.Context) (int64, error) {
+	return r.routeDB.Count(ctx, "id")
+}
+
 func routeToModel(route *domain.RouteItem) *model.Route {
 	rawResponseHeaders, _ := json.Marshal(route.ResponseHeaders)
 

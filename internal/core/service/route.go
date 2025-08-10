@@ -50,3 +50,7 @@ func (r routeService) Update(ctx context.Context, id int, route *domain.RouteIte
 	}
 	return r.repo.Update(ctx, routeItem)
 }
+
+func (r routeService) Count(ctx context.Context) (int64, error) {
+	return r.repo.Count(ctx)
+}

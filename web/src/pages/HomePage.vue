@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from "vue";
+import { ref, onMounted } from "vue";
 
 // Hardcoded routes count
 const routesCount = ref(0);
@@ -9,15 +9,15 @@ const isLoading = ref(true);
 onMounted(() => {
   isLoading.value = true;
   fetch("/api/routes/count")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data > 0) {
-          routesCount.value = data.data;
-        }
-      })
-      .finally(() => {
-        isLoading.value = false;
-      })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.data > 0) {
+        routesCount.value = data.data;
+      }
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
 });
 </script>
 
@@ -30,14 +30,14 @@ onMounted(() => {
       <div class="flex items-center">
         <div v-if="isLoading" class="flex items-center">
           <div
-              class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500 mr-3"
+            class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500 mr-3"
           ></div>
           <span>Loading routes count...</span>
         </div>
         <div v-else class="text-3xl font-bold text-blue-600">
           {{ routesCount }}
           <span class="text-gray-600 text-lg font-normal"
-          >routes configured</span
+            >routes configured</span
           >
         </div>
       </div>

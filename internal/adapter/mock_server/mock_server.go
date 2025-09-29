@@ -2,6 +2,8 @@ package mockServer
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/aquaswim/moyoki/internal/config"
 	"github.com/aquaswim/moyoki/internal/core/domain"
 	"github.com/aquaswim/moyoki/internal/core/port"
@@ -9,7 +11,6 @@ import (
 	"github.com/gofiber/fiber/v2/log"
 	fiberRecover "github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"time"
 )
 
 type mockServer struct {

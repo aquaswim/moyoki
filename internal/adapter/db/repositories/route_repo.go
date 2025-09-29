@@ -3,11 +3,12 @@ package repositories
 import (
 	"context"
 	"encoding/json"
+	"time"
+
 	"github.com/aquaswim/moyoki/internal/adapter/db/repositories/model"
 	"github.com/aquaswim/moyoki/internal/core/domain"
 	"github.com/aquaswim/moyoki/internal/core/port"
 	"gorm.io/gorm"
-	"time"
 )
 
 type routeRepository struct {

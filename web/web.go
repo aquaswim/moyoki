@@ -2,11 +2,12 @@ package web
 
 import (
 	"embed"
+	"html/template"
+
 	"github.com/aquaswim/govite"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/compress"
-	"html/template"
 )
 
 //go:embed dist/*

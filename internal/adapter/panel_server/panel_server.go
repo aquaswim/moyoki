@@ -1,6 +1,8 @@
 package httpServer
 
 import (
+	"time"
+
 	"github.com/aquaswim/moyoki/internal/config"
 	"github.com/aquaswim/moyoki/internal/core/port"
 	"github.com/aquaswim/moyoki/web"
@@ -9,7 +11,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	fiberRecover "github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"time"
 )
 
 type server struct {

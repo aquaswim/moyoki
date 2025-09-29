@@ -1,11 +1,12 @@
 package httpServer
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/aquaswim/moyoki/internal/core/domain"
 	"github.com/aquaswim/moyoki/internal/core/port"
 	"github.com/gofiber/fiber/v2"
-	"net/http"
-	"strconv"
 )
 
 type PanelHandler struct {

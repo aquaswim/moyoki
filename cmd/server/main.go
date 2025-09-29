@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/aquaswim/moyoki/internal"
-	"github.com/aquaswim/moyoki/internal/core/port"
-	"github.com/gofiber/fiber/v2/log"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/aquaswim/moyoki/internal"
+	"github.com/aquaswim/moyoki/internal/core/port"
+	"github.com/gofiber/fiber/v2/log"
 )
 
 func main() {

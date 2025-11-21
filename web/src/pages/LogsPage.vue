@@ -25,8 +25,10 @@ function toUnixSeconds(dtLocalStr) {
 // Default range: start = now - 1 day, end = now
 const now = new Date();
 const oneDayMs = 24 * 60 * 60 * 1000;
-const defaultEnd = toDateTimeLocalString(now);
 const defaultStart = toDateTimeLocalString(new Date(now.getTime() - oneDayMs));
+// set default end to end of this day
+now.setHours(23, 59, 59, 999);
+const defaultEnd = toDateTimeLocalString(now);
 
 const startInput = ref(defaultStart);
 const endInput = ref(defaultEnd);
@@ -114,14 +116,14 @@ onMounted(() => {
             <td class="px-3 py-2 border-b">{{ row.method }}</td>
             <td class="px-3 py-2 border-b">{{ row.path }}</td>
             <td class="px-3 py-2 border-b">{{ row.remoteAddr }}</td>
-            <td class="px-3 py-2 border-b truncate max-w-[20ch]" :title="row.reqQuery">
+            <td class="px-3 py-2 border-b truncate max-w-[20ch]">
               {{ row.reqQuery || "-" }}
             </td>
-            <td class="px-3 py-2 border-b truncate max-w-[40ch]" :title="row.reqHeaders">
+            <td class="px-3 py-2 border-b truncate max-w-[40ch]">
               <pre v-if="row.reqHeaders" v-text="row.reqHeaders"></pre>
             </td>
-            <td class="px-3 py-2 border-b truncate max-w-[40ch]" :title="row.body">
-              <pre v-if="row.body" v-text="row.body"></pre>
+            <td class="px-3 py-2 border-b truncate max-w-[40ch]">
+              <pre v-if="row.reqBody" v-text="row.reqBody"></pre>
             </td>
           </tr>
           <tr v-if="!isLoading && logs.length === 0">

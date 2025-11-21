@@ -3,6 +3,7 @@ package httpServer
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/aquaswim/moyoki/internal/core/domain"
 	"github.com/aquaswim/moyoki/internal/core/port"
@@ -10,14 +11,17 @@ import (
 )
 
 type PanelHandler struct {
-	routeService port.RouteService
+	routeService     port.RouteService
+	accessLogService port.AccessLogService
 }
 
 func NewPanelHandler(
 	routeService port.RouteService,
+	accessLogService port.AccessLogService,
 ) *PanelHandler {
 	return &PanelHandler{
-		routeService: routeService,
+		routeService:     routeService,
+		accessLogService: accessLogService,
 	}
 }
 
@@ -31,6 +35,9 @@ func (h PanelHandler) RegisterHandler(app *fiber.App) {
 	api.Get("/routes/:id", h.getRouteByID)
 	api.Put("/routes/:id", h.updateRouteByID)
 	api.Delete("/routes/:id", h.DeleteRouteByID)
+
+	// get access log
+	api.Get("/logs", h.getAccessLogs)
 }
 
 func (h PanelHandler) getRoutes(ctx *fiber.Ctx) error {
@@ -105,4 +112,20 @@ func (h PanelHandler) countRoutes(ctx *fiber.Ctx) error {
 		return NewErrorCodeRes(http.StatusBadRequest, err).Send(ctx)
 	}
 	return NewSuccessRes(count).Send(ctx)
+}
+
+func (h PanelHandler) getAccessLogs(ctx *fiber.Ctx) error {
+	startUnixTIme := ctx.QueryInt("start", 0)
+	endUnixTIme := ctx.QueryInt("end", 0)
+	param := &domain.FindAccessLogParam{
+		StartTime: time.Unix(int64(startUnixTIme), 0),
+		EndTime:   time.Unix(int64(endUnixTIme), 0),
+	}
+
+	data, err := h.accessLogService.Find(ctx.Context(), param)
+	if err != nil {
+		return NewErrorCodeRes(http.StatusBadRequest, err).Send(ctx)
+	}
+
+	return NewSuccessRes(data).Send(ctx)
 }

@@ -30,6 +30,7 @@ func (m mockServer) Stop() error {
 func New(
 	cfg *config.AppConfig,
 	mockService port.RouteMockService,
+	accessLogService port.AccessLogService,
 ) port.Server {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
@@ -57,6 +58,14 @@ func New(
 		for _, header := range routeItem.ResponseHeaders {
 			c.Set(header.Key, header.Value)
 		}
+
+		// add access log
+		accessLog := createAccessLog(c)
+		err = accessLogService.Insert(c.Context(), accessLog)
+		if err != nil {
+			log.Warnf("failed to insert access log: %s", err)
+		}
+
 		return c.Status(routeItem.ResponseCode).SendString(routeItem.ResponseBody)
 	})
 

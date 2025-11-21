@@ -20,9 +20,11 @@ func NewContainer() container.Container {
 	container.MustNamedSingletonLazy(c, "db", db.Closer)
 
 	container.MustSingletonLazy(c, repositories.NewRouteRepository)
+	container.MustSingletonLazy(c, repositories.NewAccessLogRepository)
 
 	container.MustSingletonLazy(c, service.NewRouteService)
 	container.MustSingletonLazy(c, service.NewRouteMockService)
+	container.MustSingletonLazy(c, service.NewAccessLogService)
 
 	container.MustSingletonLazy(c, panelServer.NewPanelHandler)
 	container.MustNamedSingletonLazy(c, "panel", panelServer.NewServer)

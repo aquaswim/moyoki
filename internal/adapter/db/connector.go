@@ -18,7 +18,7 @@ func Connect(cfg *config.DBConfig) *gorm.DB {
 
 	log.Info("connected to database")
 	log.Info("Starting migrations")
-	err = db.AutoMigrate(&model.Route{})
+	err = db.AutoMigrate(&model.Route{}, &model.AccessLog{})
 	if err != nil {
 		log.Fatalf("failed to migrate database: %s", err)
 	}

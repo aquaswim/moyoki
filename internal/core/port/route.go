@@ -7,11 +7,7 @@ import (
 )
 
 type RouteRepository interface {
-	Find(ctx context.Context) ([]domain.RouteItem, error)
-	FindByID(ctx context.Context, id int) (*domain.RouteItem, error)
-	Save(ctx context.Context, route *domain.RouteItem) error
-	Delete(ctx context.Context, id int) error
-	Update(ctx context.Context, route *domain.RouteItem) error
+	CrudRepository[domain.RouteItem]
 	Count(ctx context.Context) (int64, error)
 }
 

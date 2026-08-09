@@ -65,11 +65,13 @@ onMounted(() => {
     <div class="bg-white p-4 rounded shadow mb-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
         <div>
-          <label class="block text-sm font-medium mb-1" for="start">Start</label>
+          <label class="block text-sm font-medium mb-1" for="start"
+            >Start</label
+          >
           <input
             id="start"
-            type="datetime-local"
             v-model="startInput"
+            type="datetime-local"
             class="w-full border rounded px-3 py-2"
           />
         </div>
@@ -77,8 +79,8 @@ onMounted(() => {
           <label class="block text-sm font-medium mb-1" for="end">End</label>
           <input
             id="end"
-            type="datetime-local"
             v-model="endInput"
+            type="datetime-local"
             class="w-full border rounded px-3 py-2"
           />
         </div>
@@ -138,5 +140,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.container { max-width: 1200px; }
+.container {
+  max-width: 1200px;
+}
 </style>

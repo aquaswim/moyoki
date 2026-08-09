@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.17.5/.schema/devbox.schema.json",
+  "packages": [
+    "nodejs@24",
+    "concurrently@9.2.1"
+  ],
+  "env_from": ".env",
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to devbox!' > /dev/null"
+    ],
+    "scripts": {
+      "setup": [
+        "go mod tidy",
+        "npm --prefix web install"
+      ],
+      "start": [
+        "npm --prefix web run build",
+        "go run ./cmd/server"
+      ]
+    }
+  }
+}

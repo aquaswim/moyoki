@@ -3,9 +3,9 @@ FROM alpine
 LABEL org.opencontainers.image.title="Moyoki" \
       org.opencontainers.image.description="Mock api"
 
-RUN addgroup -S app && adduser -S app -G app
+# RUN addgroup -S app && adduser -S app -G app
 
-USER app
+# USER app
 
 WORKDIR /app
 ENV PANEL_LISTEN_ADDR=:3000 \

@@ -14,9 +14,11 @@ services:
       - TZ=Asia/Jakarta
     labels:
       - collect_logs=true
-      # - traefik.enable=true
-      # - traefik.http.routers.gomorrah.rule=Host(`gomorrah.home.aquaswim.my.id`)
-      # - traefik.http.services.gomorrah.loadbalancer.server.port=8080
+      - traefik.enable=true
+      - traefik.http.routers.mock.rule=Host(`mock.home.aquaswim.my.id`)
+      - traefik.http.services.mock.loadbalancer.server.port=3001
+      - traefik.http.routers.mock-ui.rule=Host(`mock-ui.home.aquaswim.my.id`)
+      - traefik.http.services.mock-ui.loadbalancer.server.port=3000
     deploy:
       resources:
         limits:

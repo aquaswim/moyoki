@@ -21,6 +21,7 @@ steps:
   - name: build frontend
     image: node:24
     commands:
+      - npm --prefix web install
       - npm --prefix web run build
   - name: build backend
     image: golang:1.26

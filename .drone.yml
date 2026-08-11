@@ -1,0 +1,60 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+trigger:
+  branch:
+    - master
+
+steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - ./web/node_modules
+        - ./.gopath
+  - name: build frontend
+    image: node:24
+    commands:
+      - npm --prefix web run build
+  - name: build backend
+    image: golang:1.26
+    commands:
+      - export GOPATH="$(pwd)/.gopath"
+      - go mod download
+      - CGO_ENABLED=0 GOOS=linux go build -o docker/moyoki ./cmd/server
+  - name: build & push docker image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: GITEA_DOCKER_USERNAME
+      password:
+        from_secret: GITEA_DOCKER_PASSWORD
+      registry: git.dev.aquaswim.my.id
+      repo: git.dev.aquaswim.my.id/personal/moyoki
+      cache_from: git.dev.aquaswim.my.id/personal/moyoki
+      dockerfile: docker/Dockerfile
+      tags:
+        - ${DRONE_BUILD_NUMBER}
+        - latest
+      mirror: http://192.168.1.202:5000
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      rebuild: true
+      mount:
+        - ./web/node_modules
+        - ./.gopath
+
+volumes:
+  - name: cache
+    host:
+      path: /home/aquaswim/drone-volume-cache

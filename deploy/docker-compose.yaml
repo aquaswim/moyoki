@@ -1,0 +1,27 @@
+networks:
+  default:
+    external: true
+    name: main
+
+services:
+  moyoki:
+    image: git.dev.aquaswim.my.id/personal/moyoki:latest
+    container_name: moyoki
+    restart: unless-stopped
+    volumes:
+      - moyoki_data:/config
+    environment:
+      - TZ=Asia/Jakarta
+    labels:
+      - collect_logs=true
+      # - traefik.enable=true
+      # - traefik.http.routers.gomorrah.rule=Host(`gomorrah.home.aquaswim.my.id`)
+      # - traefik.http.services.gomorrah.loadbalancer.server.port=8080
+    deploy:
+      resources:
+        limits:
+          cpus: '0.15'
+          memory: 64M
+
+volumes:
+  moyoki_data:

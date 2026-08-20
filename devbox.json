@@ -1,8 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.17.5/.schema/devbox.schema.json",
   "packages": [
-    "nodejs@24",
-    "concurrently@9.2.1"
+    "nodejs@24"
   ],
   "env_from": ".env",
   "shell": {
@@ -17,7 +16,9 @@
       "start": [
         "npm --prefix web run build",
         "go run ./cmd/server"
-      ]
+      ],
+      "dev:front": "npm --prefix web run dev",
+      "dev:be": "go run ./cmd/server"
     }
   }
 }

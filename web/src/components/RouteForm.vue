@@ -34,6 +34,23 @@ const addHeader = () => {
 const removeHeader = (index) => {
   model.value.responseHeaders.splice(index, 1);
 };
+
+const addJsonContentTypeHeader = () => {
+  if (!model.value.responseHeaders) {
+    model.value.responseHeaders = [];
+  }
+  const existing = model.value.responseHeaders.find(
+    (header) => header.key.toLowerCase() === "content-type",
+  );
+  if (existing) {
+    existing.value = "application/json";
+  } else {
+    model.value.responseHeaders.push({
+      key: "Content-Type",
+      value: "application/json",
+    });
+  }
+};
 </script>
 
 <template>
@@ -150,13 +167,22 @@ const removeHeader = (index) => {
         </button>
       </div>
 
-      <button
-        type="button"
-        class="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        @click="addHeader"
-      >
-        Add Header
-      </button>
+      <div class="mt-2 flex flex-wrap gap-2">
+        <button
+          type="button"
+          class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          @click="addHeader"
+        >
+          Add Header
+        </button>
+        <button
+          type="button"
+          class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          @click="addJsonContentTypeHeader"
+        >
+          + Content-Type: application/json
+        </button>
+      </div>
     </div>
 
     <!-- Response Body -->
